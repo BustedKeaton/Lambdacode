@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>GetPass!</title>
+    <!-- Import de l'API Google -->
+    <script src="http://www.google.com/jsapi">
+    </script>
+
+    <!-- Script de création d'un mot de passe -->
+    <script type="text/javascript">
+
+    function getPass() {
+        var letMaj = "ABCDEFGHIJKLMNOPKRSTUVWXYZ";
+        var letMin = letMaj.toLowerCase();
+        var spec = "ù%*µ^¨$£=(){}/*-+#[]!?";
+        var allChar = letMaj+letMin+spec;
+        var lenPass = 10;
+        var pass = "";
+        for (var i = 0; i < lenPass;i++) {
+            num = Math.floor(Math.random()*71);
+            pass += allChar.substring(num-1,num);
+        }
+        var res = document.getElementById("res");
+        res.innerHTML = pass;
+    }
+
+    </script>
+
+    <!-- Chargement de jQuery 1.4.0 via google.load(), cf. http://code.google.com/intl/fr/apis/ajax/documentation/#AvailableAPIs -->
+    <script type="text/javascript">
+    google.load("jquery","1.4.0");
+    google.load('visualization', '1', {'packages':['piechart']});
+    function hide() {
+        $("#res").hide();
+    }
+    function show() {
+        $("#res").show();
+    }
+
+    function getChart() {
+        var data = new google.visualization.DataTable();
+        data.AddColumn('string','Type');
+        data.AddColumn('number','Type');
+        data.addRows([
+          ['MAJ', 11],
+          ['MIN', 2],
+          ['SPEC', 7]
+        ]);
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, {width: 400, height: 240, is3D: true, title: 'Répartition des caractères'});
+
+    }
+    </script>
+
+</head>
+<body>
+    <h1>Un mot de passe ?</h1>
+    <p>Par ici :</p>
+    <a href="#" id="act" onclick="getPass();">GetPass!</a>
+    <div><p id="res">RES</p></div>
+    <a href="#" onclick="hide();">[hide]</a>
+    <a href="#" onclick="show();">[show]</>
+    <br/>
+    <a href="#" onclick="getChart();">Chart</a>
+    <div id="char_div"></div>
+</body>
